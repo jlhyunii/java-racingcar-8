@@ -12,7 +12,7 @@ public class Validator {
             throw new IllegalArgumentException("자동차 이름이 비었습니다.");
         }
 
-        List<String> names = Arrays.stream(input.split(","))
+        List<String> names = Arrays.stream(input.split(",", -1))
                 .map(String::trim)
                 .collect(Collectors.toList());
 
