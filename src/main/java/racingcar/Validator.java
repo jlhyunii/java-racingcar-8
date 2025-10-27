@@ -35,4 +35,21 @@ public class Validator {
 
         return List.copyOf(names);
     }
+
+    public static int validateTryCount(String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("시도 횟수가 비어있습니다.");
+        }
+
+        if (!input.chars().allMatch(Character::isDigit)) {
+            throw new IllegalArgumentException("시도 횟수는 숫자여야 합니다.");
+        }
+
+        int count = Integer.parseInt(input);
+        if (count <= 0) {
+            throw new IllegalArgumentException("시도 횟수는 1 이상이어야 합니다.");
+        }
+
+        return count;
+    }
 }
