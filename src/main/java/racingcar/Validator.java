@@ -1,0 +1,38 @@
+package racingcar;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Validator {
+    public static List<String> validateCarNames(String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("자동차 이름이 비었습니다.");
+        }
+
+        List<String> names = Arrays.stream(input.split(","))
+                .map(String::trim)
+                .collect(Collectors.toList());
+
+        if (names.stream().anyMatch(String::isBlank)) {
+            throw new IllegalArgumentException("자동차 이름이 비었습니다.");
+        }
+
+        if (names.stream().anyMatch(name -> name.length() > 5)) {
+            throw new IllegalArgumentException("자동차 이름은 5자 이하만 가능합니다.");
+        }
+
+        if (names.stream().anyMatch(name -> name.contains(" "))) {
+            throw new IllegalArgumentException("자동차 이름에 공백이 포함될 수 없습니다.");
+        }
+
+        Set<String> distinctNames = new HashSet<>(names);
+        if (distinctNames.size() != names.size()) {
+            throw new IllegalArgumentException("자동차 이름이 중복되었습니다.");
+        }
+
+        return List.copyOf(names);
+    }
+}
